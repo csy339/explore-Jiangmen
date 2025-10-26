@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器缓存清理工具</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .success-animation {
+            animation: successPulse 1s ease-in-out;
+        }
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- 头部导航 -->
+        <header class="text-center mb-12 fade-in">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-broom mr-3 text-blue-500"></i>
+                浏览器缓存清理工具
+            </h1>
+            <p class="text-gray-600 text-lg">快速清理浏览器缓存数据，提升浏览体验</p>
+        </header>
+
+        <!-- 主功能区域 -->
+        <main class="bg-white rounded-2xl shadow-xl p-6 mb-8 fade-in">
+            <!-- 一键清理区域 -->
+            <div class="text-center mb-10 p-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white">
+                <i class="fas fa-rocket text-4xl mb-4"></i>
+                <h2 class="text-2xl font-bold mb-4">一键快速清理</h2>
+                <p class="mb-6 opacity-90">清除所有类型的缓存数据，让浏览器恢复最佳性能</p>
+                <button id="clearAllBtn" class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-bolt mr-2"></i>立即清理所有缓存
+                </button>
+            </div>
+
+            <!-- 选择性清理区域 -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-sliders-h mr-3 text-blue-500"></i>
+                    选择性清理
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 缓存类型选项 -->
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" id="cacheCheckbox" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500" checked>
+                            <div>
+                                <span class="font-medium text-gray-800">浏览器缓存</span>
+                                <p class="text-sm text-gray-500">临时文件、图片等资源缓存</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" id="cookiesCheckbox" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                            <div>
+                                <span class="font-medium text-gray-800">Cookies</span>
+                                <p class="text-sm text-gray-500">网站登录状态和偏好设置</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" id="storageCheckbox" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                            <div>
+                                <span class="font-medium text-gray-800">本地存储</span>
+                                <p class="text-sm text-gray-500">localStorage和sessionStorage数据</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" id="historyCheckbox" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                            <div>
+                                <span class="font-medium text-gray-800">浏览历史</span>
+                                <p class="text-sm text-gray-500">访问过的网页记录</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 选择性清理按钮 -->
+                <div class="text-center mt-6">
+                    <button id="clearSelectedBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300">
+                        <i class="fas fa-filter mr-2"></i>清理选中项
+                    </button>
+                </div>
+            </div>
+
+            <!-- 高级选项 -->
+            <div class="border-t pt-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-cog mr-2 text-blue-500"></i>高级选项</h3>
+                <div class="flex flex-wrap gap-4">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="autoClearCheckbox" class="w-4 h-4 text-blue-600 rounded">
+                        <span class="text-gray-700">自动清理（关闭浏览器时）</span>
+                    </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="passwordClearCheckbox" class="w-4 h-4 text-blue-600 rounded">
+                        <span class="text-gray-700">清除保存的密码</span>
+                    </label>
+                </div>
+            </div>
+        </main>
+
+        <!-- 状态显示区域 -->
+        <div id="statusArea" class="bg-white rounded-2xl shadow-xl p-6 fade-in">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-info-circle mr-2 text-blue-500"></i>
+                清理状态
+            </h3>
+            <div id="statusMessage" class="text-gray-600">
+                等待执行清理操作...
+            </div>
+            <div class="mt-4">
+                <div class="flex justify-between text-sm text-gray-500 mb-1">
+                    <span>缓存使用情况</span>
+                    <span id="cacheSize">--</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="cacheProgress" class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚信息 -->
+        <footer class="text-center mt-12 text-gray-500 fade-in">
+            <p>© 2024 缓存清理工具 | 确保您的浏览体验始终流畅</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

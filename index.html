@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Jiangmen</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://p3-doubao-search-sign.byteimg.com/labis/247cf73cf91b137512ab4171982d55e8~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199467&x-signature=RiKWuK29%2FXLhbSlxYXMngkKEj5w%3D');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #e63946;
+            margin: 15px auto 0;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #e63946;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active::after {
+            width: 100%;
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .fade {
+            animation: fade 0.5s;
+        }
+        
+        @keyframes fade {
+            from { opacity: 0.4 }
+            to { opacity: 1 }
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #e63946;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+        
+        /* Animation classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Editable content styles */
+      /*  .editable {
+            position: relative;
+            cursor: text;
+            border: 1px dashed transparent;
+            transition: border-color 0.3s ease;
+        }
+        
+        .editable:hover {
+            border-color: #e63946;
+        }
+        
+        .editable::after {
+            content: '\f044';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+            color: #e63946;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .editable:hover::after {
+            opacity: 1;
+        }
+        
+        .editable-image {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .editable-image::after {
+            content: '\f030';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .editable-image:hover::after {
+            opacity: 1;
+        }
+        */
+        .admin-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .admin-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: #e63946;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .editable-link {
+            position: relative;
+            cursor: pointer;
+            border: 1px dashed transparent;
+            transition: border-color 0.3s ease;
+        }
+        
+        .editable-link:hover {
+            border-color: #e63946;
+        }
+        
+        .editable-link::after {
+            content: '\f044';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 12px;
+            color: #e63946;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .editable-link:hover::after {
+            opacity: 1;
+        }
+        
+        /* 详情展示模态框样式 */
+        .detail-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-y: auto;
+        }
+        
+        .detail-modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 900px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .detail-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+        
+        .detail-close:hover {
+            color: #000;
+        }
+        
+        .detail-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .detail-image-container {
+            width: 100%;
+            max-height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .detail-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .detail-text {
+            line-height: 1.6;
+        }
+        
+        .detail-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .detail-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .detail-full-description {
+            color: #444;
+        }
+        
+        @media (min-width: 768px) {
+            .detail-content {
+                flex-direction: row;
+            }
+            
+            .detail-image-container {
+                width: 40%;
+            }
+            
+            .detail-text {
+                width: 60%;
+                padding-left: 20px;
+            }
+        }
+        
+        .detail-hint {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Admin Toggle -->
+    <div class="admin-toggle" id="admin-toggle">
+        <i class="fas fa-cog"></i>
+    </div>
+    
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="admin-panel">
+        <h3 class="text-lg font-bold mb-4">网站编辑器</h3>
+        <div class="space-y-3">
+            <button id="enable-edit" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors w-full">
+                <i class="fas fa-edit mr-2"></i>启用编辑
+            </button>
+            <button id="disable-edit" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors w-full">
+                <i class="fas fa-times mr-2"></i>禁用编辑
+            </button>
+            <button id="save-content" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors w-full">
+                <i class="fas fa-save mr-2"></i>保存更改
+            </button>
+            <button id="reset-content" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors w-full">
+                <i class="fas fa-undo mr-2"></i>重置为默认
+            </button>
+            <div class="pt-4 border-t">
+                <p class="text-sm text-gray-600">点击文本、图片或链接进行编辑</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-landmark mr-2 text-red-600"></i><span class="editable" data-id="site-title">Explore</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link active text-gray-700 hover:text-red-600 transition-colors">Home</a>
+                    <a href="#attractions" class="nav-link text-gray-700 hover:text-red-600 transition-colors">Attractions</a>
+                    <a href="#food" class="nav-link text-gray-700 hover:text-red-600 transition-colors">Food</a>
+                    <a href="#culture" class="nav-link text-gray-700 hover:text-red-600 transition-colors">Culture</a>
+                    <a href="#travel-tips" class="nav-link text-gray-700 hover:text-red-600 transition-colors">Travel Tips</a>
+                    
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-red-600 transition-colors">Contact</a>
+                </div>
+                
+                <!-- Language Switcher -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button id="lang-en" class="px-3 py-1 bg-red-600 text-white rounded-md">EN</button>
+                    <button id="lang-zh" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-md">中文</button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden pt-4 pb-2">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-red-600">Home</a>
+                <a href="#attractions" class="block py-2 text-gray-700 hover:text-red-600">Attractions</a>
+                <a href="#food" class="block py-2 text-gray-700 hover:text-red-600">Food</a>
+                <a href="#culture" class="block py-2 text-gray-700 hover:text-red-600">Culture</a>
+                <a href="#travel-tips" class="block py-2 text-gray-700 hover:text-red-600">Travel Tips</a>
+                
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-red-600">Contact</a>
+                
+                <!-- Mobile Language Switcher -->
+                <div class="flex space-x-4 pt-2">
+                    <button id="mobile-lang-en" class="px-3 py-1 bg-red-600 text-white rounded-md">EN</button>
+                    <button id="mobile-lang-zh" class="px-3 py-1 bg-gray-200 text-gray-700 rounded-md">中文</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section h-screen flex items-center justify-center text-white">
+        <div class="container mx-auto px-4 text-center hero-content">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 editable" data-id="hero-title">Discover the Hidden Gem of Guangdong</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto editable" data-id="hero-subtitle">Explore Jiangmen's rich culture, stunning landscapes, and delicious cuisine</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#attractions" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-md transition-colors">
+                    <i class="fas fa-map-marker-alt mr-2"></i>Explore Attractions
+                </a>
+                <a href="#travel-tips" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-3 px-6 rounded-md transition-colors">
+                    <i class="fas fa-info-circle mr-2"></i>Travel Tips
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-3xl font-bold text-center mb-8 editable" data-id="intro-title">Welcome to Jiangmen</h2>
+                    <p class="text-gray-700 mb-4 editable" data-id="intro-text-1">
+                        Jiangmen, located in the western coastal region of Guangdong Province, China, is a treasure trove of history, culture, and natural beauty. Known for its rich heritage and vibrant urban life, Jiangmen offers a unique blend of traditional and modern elements.
+                    </p>
+                    <p class="text-gray-700 mb-4 editable" data-id="intro-text-2">
+                        As the hometown of overseas Chinese, Jiangmen has a special connection with the world, reflected in its unique architecture, culture, and cuisine. The city is famous for the Kaiping Diaolou and Villages, a UNESCO World Heritage site that showcases the unique fusion of Chinese and Western architectural styles.
+                    </p>
+                    <p class="text-gray-700 editable" data-id="intro-text-3">
+                        Whether you're interested in exploring ancient villages, enjoying delicious Cantonese cuisine, or experiencing the warmth of local hospitality, Jiangmen has something to offer every traveler.
+                    </p>
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <div class="rounded-lg overflow-hidden shadow-lg editable-image" data-id="intro-img-1">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/c4abbdf27b907ea93a94ac0d8640cb4a~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199467&x-signature=%2FusXAH%2BTezc1apiY69FR5QJ99bs%3D" alt="Kaiping Diaolou" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-lg editable-image" data-id="intro-img-2">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/image/5928af16d0a401a0e60399b7e70310ee~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199467&x-signature=WbOd66o3ShcFWy65mWtKkQSpsTI%3D" alt="Bird Paradise" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-lg editable-image" data-id="intro-img-3">
+                        <img src="./images/fm1.jpg" alt="Local Food" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-lg editable-image" data-id="intro-img-4">
+                        <img src="./images/fm2.jpg" alt="Historical Site" class="w-full h-64 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Section -->
+    <section id="attractions" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 editable" data-id="attractions-title">Top Attractions</h2>
+            
+            <!-- Attraction Categories -->
+            <div class="flex flex-wrap justify-center gap-4 mb-10">
+                <button class="attraction-filter active px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors" data-filter="all">All</button>
+                <button class="attraction-filter px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors" data-filter="natural">Natural Scenery</button>
+                <button class="attraction-filter px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors" data-filter="historical">Historical Sites</button>
+                <button class="attraction-filter px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors" data-filter="cultural">Cultural Attractions</button>
+            </div>
+            
+            <!-- Attraction Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kaiping Diaolou -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="natural">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-1">
+                            <img src="./images/bird.png" alt="Bird Paradise" class="w-full h-64 object-cover">
+                        </div>
+                       
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-1">Bird Paradise</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-1">
+                            A natural reserve famous for its mangrove forest and thousands of birds. Made famous by the Chinese writer Ba Jin's essay "Bird Paradise."
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-1" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+   
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bird Paradise -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="natural">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-2">
+                            <img src="./images/prak.png" alt="Guifeng Mountain National Forest Park" class="w-full h-64 object-cover">
+                        </div>
+                         <!--<div class="absolute top-4 right-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">nown as the "emerald of the Pearl River Delta</div>-->
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-2">Guifeng Mountain National Forest Park</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-2">
+                            A well-preserved ancient water town that displays the long history and cultural heritage of Jiangmen.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-2" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Former Residence of Liang Qichao -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="natural">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-3">
+                            <img src="./images/parks.png" alt="Liang Qichao Former Residence" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-3">Kaiping Peacock Lake National Wetland Park</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-3">
+                            As part of Jiangmen’s rich natural landscape, this wetland park is famous for its clear lake water, lush wetland vegetation, and diverse wildlife. It is an ideal place for bird-watching, photography, and eco-tourism, allowing tourists to get close to nature and enjoy the peace of the wetland.
+                        </p>
+                        <div class="flex justify-between items-center">
+                          <!-- <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-3" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>-->
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增自然风光景点1 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="natural">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-4">
+                            <img src="./images/parkss.png" alt="Gulao Water Town" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-4">Naqin Peninsula Geopark & Ocean Park</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-4">
+                        Jiangmen is rich in coastal tourism resources and has many islands, which can meet all your expectations for coastal tourism. Naqin Peninsula Geopark & Ocean Park is a highlight of Jiangmen’s coastal scenery. It is famous for its unique coastal landforms such as strange rocks and sea erosion cliffs, and clear blue sea water. Tourists can walk along the coastal plank road, enjoy the magnificent sea view, or take part in marine activities such as snorkeling and beach camping.</p>
+                        <div class="flex justify-between items-center">
+                            <!--< a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-4" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>-->
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增自然风光景点2 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="natural">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-5">
+                            <img src="./images/Islands.png" alt="Guifeng Mountain" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-5">Chuanshan Islands</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-5">
+                           Including Shangchuan Island and Xiachuan Island, Chuanshan Islands are among Jiangmen’s most popular coastal tourist destinations. With long stretches of golden beaches, crystal-clear sea water, and rich marine resources, the islands are perfect for beach holidays, seafood tasting, and water sports like jet skiing and parasailing.</p>
+                        <div class="flex justify-between items-center">
+                            <!--<a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-5" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>-->
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增自然风光景点3 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="historical">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-6">
+                            <img src="./images/diaolou.png" alt="Yamen Ancient Battlefield" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-6">Kaiping Diaolou</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-6">
+                           These unique watchtowers and villages reflect the architectural style of the Ming and Qing dynasties. A UNESCO World Heritage site that showcases the fusion of Chinese and Western architectural styles.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-6" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增文化景点1  cultural-->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="historical">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-8">
+                            <img src="./images/town.png" alt="Jiangmen Overseas Chinese Museum" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-8">Chikan Ancient Town</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-8">
+                           Combining with Chinese and Western architectural styles, full of overseas Chinese charm.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-8" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 新增历史遗迹1 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="historical">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-7">
+                            <img src="./images/oldhouse.png" alt="Jiangmen Overseas Chinese Museum" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-7">Former Residence of Liang Qichao</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-7">
+                        The former residence of Liang Qichao, a prominent Chinese thinker, philosopher, and reformer of the late Qing Dynasty.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-7" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+
+                <!-- 新增文化景点2 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="cultural">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-9">
+                            <img src="./images/overseas.png" alt="Taishan Chuan Island" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-9">China Qiaodu Overseas Chinese Museum</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-9">
+                            It signifies that Jiangmen, as "China’s Hometown of Overseas Chinese", is an important window for the world to observe Guangdong and even China.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-9" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增自然风光景点4 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll" data-category="cultural">
+                    <div class="relative">
+                        <div class="editable-image" data-id="attraction-img-10">
+                            <img src="./images/museum.png" alt="Xinhui Guifengshan Hot Spring" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="attraction-title-10">Xinhui Museum</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="attraction-desc-10">
+                          it's more than a museum; it's an essential key to understanding the spirit of southern Guangdong.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link attraction-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="attraction-link-10" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Section -->
+    <section id="food" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 editable" data-id="food-title">Local Cuisine</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Jiangmen Rice Noodles -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="relative">
+                        <div class="editable-image" data-id="food-img-1">
+                            <img src="./images/goose.png" alt="Jiangmen Rice Noodles" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="food-title-1">Gujing Roast Goose</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="food-desc-1">
+                            Not only is it a benchmark for Guangdong-style roast goose, but it also was officially listed in Guangdong’s Intangible Cultural Heritage Directory in 2012. </p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link food-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="food-link-1" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Kaiping Clay Pot Chicken -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="relative">
+                        <div class="editable-image" data-id="food-img-2">
+                            <img src="images/food.png" alt="Kaiping Clay Pot Chicken" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="food-title-2">Taishan Eel Rice</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="food-desc-2">
+                            Taishan Eel Rice is the signature delicacy of Taishan, Jiangmen.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link food-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="food-link-2" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Xinhui Tangerine Peel -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="relative">
+                        <div class="editable-image" data-id="food-img-3">
+                            <img src="./images/nodes.png" alt="Xinhui Tangerine Peel" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="food-title-3">Enping Laishen Noodles</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="food-desc-3">
+                          Enping Laishen Noodles take late-harvest indica rice as their key ingredient. The finished noodles boast a smooth, glossy surface and a delightfully chewy, slippery texture</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="editable-link food-detail-btn text-red-600 hover:text-red-700 font-medium flex items-center" data-id="food-link-3" title="点击查看详情">
+                                Learn More <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增美食1 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="relative">
+                        <div class="editable-image" data-id="food-img-4">
+                            <img src="./images/dojiao.png" alt="Taishan Seafood" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="food-title-4">Kaiping Chikan Tofu Dumplings</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="food-desc-4">
+                            Kaiping Chikan Tofu Dumplings, a century-old intangible cultural heritage snack in Jiangmen, are made with local fresh tofu wrapped in mud carp paste and fried. Crispy outside, tender inside, they’re savory with a slight spice—bite in for a crunchy crust and juicy tofu, a must-try when visiting Chikan Ancient Town.
+                        </p>
+                        <div class="flex justify-between items-center">
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增美食2 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="relative">
+                        <div class="editable-image" data-id="food-img-5">
+                            <img src="./images/meat.png" alt="Enping Bean Curd" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="food-title-5">Liyue Cured Meat</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="food-desc-5">
+                            Liyue Cured Meat is a century-old flavor from Liyue Street, Jianghai District, Jiangmen, and was listed in Jiangmen’s intangible cultural heritage in 2020. It’s richly savory, oily but not greasy. Its classic clay pot rice—rice soaked with cured meat oil, fragrant and warm—is a must-try in autumn and winter, offering authentic deliciousness.
+                        </p>
+                        <div class="flex justify-between items-center">
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增美食3 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="relative">
+                        <div class="editable-image" data-id="food-img-6">
+                            <img src="./images/coffee.png" alt="Heshan Roasted Goose" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 editable" data-id="food-title-6">Qiaodu Coffee</h3>
+                        <p class="text-gray-600 mb-4 editable" data-id="food-desc-6">
+                            Qiaodu Coffee is Jiangmen’s innovative drink blending overseas Chinese culture—Tangerine Peel Latte is fragrant and mellow, Bitter Gourd Americano is slightly bitter with a sweet aftertaste. Coffee aroma meets local ingredients, offering a unique Jiangmen flavor, perfect for young tourists to check in.
+                        </p>
+                        <div class="flex justify-between items-center">
+                        
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 editable" data-id="culture-title">Culture & Heritage</h2>
+            
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2">
+                    <div class="editable-image" data-id="culture-img">
+                        <img src="./images/bg.png" alt="Jiangmen Culture" class="w-full rounded-lg shadow-lg">
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4 editable" data-id="culture-subtitle">A Rich Tapestry of Traditions</h3>
+                    <p class="text-gray-700 mb-4 editable" data-id="culture-text-1">
+                        Jiangmen is known as the "Hometown of Overseas Chinese" due to its large number of emigrants who have settled abroad. This has created a unique cultural blend that combines traditional Chinese elements with Western influences.
+                    </p>
+                    <p class="text-gray-700 mb-4 editable" data-id="culture-text-2">
+                        The city is famous for its distinctive architectural style, particularly the Kaiping Diaolou, which are multi-story defensive village houses that incorporate Chinese and Western structural and decorative forms.
+
+                    </p>
+                    <p class="text-gray-700 mb-4 editable" data-id="culture-text-3">
+                       iangmen is also known for its traditional Cantonese opera, lion dances, and various folk arts that are preserved and performed during festivals and celebrations.
+                    </p>
+                    <div class="mt-6">
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cultural Projects Section -->
+            <div id="cultural-projects" class="mt-16">
+                <h3 class="text-2xl font-bold text-center mb-8 editable" data-id="cultural-projects-title">Cultural Heritage</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Project 1 -->
+                    <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                        <div class="relative">
+                            <div class="editable-image" data-id="culture-project-img-1">
+                                <img src="./images/11111.png" alt="Diaolou Preservation" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2 editable" data-id="culture-project-title-1">Xinhui Cai Li Fo Kung Fu</h4>
+                            <p class="text-gray-600 mb-4 editable" data-id="culture-project-desc-1">
+                                 A famous traditional martial art in southern China, with a history of over 170 years. It combines the strengths of three martial arts styles and is known for its practicality and flexibility
+                            </p>
+                            <div class="flex justify-between items-center">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                        <div class="relative">
+                            <div class="editable-image" data-id="culture-project-img-2">
+                                <img src="./images/22222.png" alt="Cantonese Opera Revival" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2 editable" data-id="culture-project-title-2">Pancun Lantern Festival</h4>
+                            <p class="text-gray-600 mb-4 editable" data-id="culture-project-desc-2">
+                                A traditional folk activity in Pancun, Xinhui, held on the 13th day of the first lunar month every year. With colorful lanterns, dragon and lion dances, it attracts many tourists to experience the lively folk atmosphere.
+                            </p>
+                            <div class="flex justify-between items-center">
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 新增文化遗产项目3 -->
+                    <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                        <div class="relative">
+                            <div class="editable-image" data-id="culture-project-img-3">
+                                <img src="images/33333.png" alt="Overseas Chinese Culture" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2 editable" data-id="culture-project-title-3">Liyue Dragon Boat</h4>
+                            <p class="text-gray-600 mb-4 editable" data-id="culture-project-desc-3">
+                                A long-standing dragon boat culture in Liyue Street, Jianghai District. Every Dragon Boat Festival, exciting dragon boat races are held on the river, showcasing the vigorous spirit of the local people.
+                            <div class="flex justify-between items-center">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 新增文化遗产项目4 -->
+                    <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                        <div class="relative">
+                            <div class="editable-image" data-id="culture-project-img-4">
+                                <img src="images/44444.png" alt="Folk Art Protection" class="w-full h-48 object-cover">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2 editable" data-id="culture-project-title-4">Xinhui Palm Weaving</h4>
+                            <p class="text-gray-600 mb-4 editable" data-id="culture-project-desc-4">
+                                A traditional craft with a history of over 1,600 years. Using local palm leaves, craftsmen weave various delicate products such as fans, baskets, and hats, which are both practical and ornamental.
+                            </p>
+                            <div class="flex justify-between items-center">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="detail-modal">
+        <div class="detail-modal-content">
+            <span class="detail-close">&times;</span>
+            <div class="detail-content">
+                <div class="detail-image-container">
+                    <img id="detail-modal-image" class="detail-image editable-image" data-id="detail-image" src="" alt="Detail Image">
+                </div>
+                <div class="detail-text">
+                    <h2 id="detail-modal-title" class="detail-title editable" data-id="detail-title">详情标题</h2>
+                    <p id="detail-modal-description" class="detail-description editable" data-id="detail-description">简短描述</p>
+                    <div id="detail-modal-full-description" class="detail-full-description editable" data-id="detail-full-description">
+                        完整描述内容...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 其余部分保持不变 -->
+   <!-- Travel Tips Section -->
+    <section id="travel-tips" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 editable" data-id="travel-tips-title">Travel Tips</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Best Time to Visit -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-calendar-alt text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold editable" data-id="travel-tip-title-1">Best Time to Visit</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4 editable" data-id="travel-tip-desc-1">
+                            The best time to visit Jiangmen is during autumn (September to November) when the weather is pleasant and rainfall is minimal. Spring (March to May) is also a good time with mild temperatures.
+                        </p>
+                        
+                    </div>
+                </div>
+                
+                <!-- Transportation -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-bus text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold editable" data-id="travel-tip-title-2">Transportation</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4 editable" data-id="travel-tip-desc-2">
+                            Jiangmen is well-connected by high-speed rail, buses, and ferries. The city has an efficient public transportation system including buses and taxis for getting around.
+                        </p>
+                        
+                    </div>
+                </div>
+                
+                <!-- Accommodation -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-hotel text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold editable" data-id="travel-tip-title-3">Accommodation</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4 editable" data-id="travel-tip-desc-3">
+                            Jiangmen offers a wide range of accommodation options, from luxury hotels to budget-friendly hostels. It's recommended to book in advance during peak travel seasons.
+                        </p>
+                        
+                    </div>
+                </div>
+                
+                <!-- Local Customs -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-users text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold editable" data-id="travel-tip-title-4">Local Customs</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4 editable" data-id="travel-tip-desc-4">
+                            When visiting temples or traditional villages, dress modestly. It's polite to accept tea with both hands when offered. Tipping is not customary in China.
+                        </p>
+                       
+                    </div>
+                </div>
+                
+                <!-- Language -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-language text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold editable" data-id="travel-tip-title-5">Language</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4 editable" data-id="travel-tip-desc-5">
+                            The local language is Cantonese, but Mandarin is widely understood. Learning a few basic phrases in either language can be helpful. English is not commonly spoken outside tourist areas.
+                        </p>
+                        
+                    </div>
+                </div>
+                
+                <!-- Currency -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-lg animate-on-scroll">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-money-bill-wave text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold editable" data-id="travel-tip-title-6">Currency</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4 editable" data-id="travel-tip-desc-6">
+                            The official currency is the Chinese Yuan (CNY). Credit cards are accepted in major hotels and restaurants, but it's advisable to carry cash for smaller establishments and markets.
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold text-center mb-12 editable" data-id="contact-title">Contact</h2>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"></textarea>
+                        </div>
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-md transition-colors w-full">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4 editable" data-id="contact-info-title">Contact Us</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-red-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold editable" data-id="contact-address-title">Address</h4>
+                                    <p class="text-gray-600 editable" data-id="contact-address">Jiangmen City, Guangdong Province, China</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone text-red-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold editable" data-id="contact-phone-title">Tel</h4>
+                                    <p class="text-gray-600 editable" data-id="contact-phone">+86 750 1234 5678</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-red-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold editable" data-id="contact-email-title">Email</h4>
+                                    <p class="text-gray-600 editable" data-id="contact-email">info@discoverjiangmen.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-red-600 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold editable" data-id="contact-hours-title">Work HOurs</h4>
+                                    <p class="text-gray-600 editable" data-id="contact-hours">Moday-Friday: 9:00 AM - 6:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <h4 class="font-bold mb-3 editable" data-id="social-media-title">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-gray-200 hover:bg-red-600 text-gray-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 hover:bg-red-600 text-gray-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 hover:bg-red-600 text-gray-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 hover:bg-red-600 text-gray-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                    <i class="fab fa-weibo"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-2xl font-bold">
+                        <i class="fas fa-landmark mr-2 text-red-600"></i><span class="editable" data-id="footer-site-title">Discover Jiangmen</span>
+                    </a>
+                    <p class="text-gray-400 mt-2 editable" data-id="footer-tagline">Explore the beauty and culture of Jiangmen</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Sitemap</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
+                <p class="editable" data-id="footer-copyright">&copy; © 2025 Discover Jiangmen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scroll-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Image Upload Modal -->
+    <div id="image-upload-modal" class="modal">
+        <div class="modal-content w-11/12 md:w-1/2 mx-auto mt-20 bg-white rounded-lg shadow-xl">
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-4">上传新图片</h3>
+                <div class="mb-4">
+                    <input type="file" id="image-file" class="w-full px-4 py-2 border border-gray-300 rounded-md">
+                </div>
+                <div class="mb-4">
+                    <label for="image-alt" class="block text-gray-700 mb-2">图片描述</label>
+                    <input type="text" id="image-alt" class="w-full px-4 py-2 border border-gray-300 rounded-md">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button id="cancel-upload" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">取消</button>
+                    <button id="confirm-upload" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link Editor Modal -->
+    <div id="link-editor-modal" class="modal">
+        <div class="modal-content w-11/12 md:w-1/2 mx-auto mt-20 bg-white rounded-lg shadow-xl">
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-4">编辑链接</h3>
+                <div class="mb-4">
+                    <label for="link-url" class="block text-gray-700 mb-2">链接URL</label>
+                    <input type="text" id="link-url" class="w-full px-4 py-2 border border-gray-300 rounded-md">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button id="cancel-link-edit" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">取消</button>
+                    <button id="confirm-link-edit" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        // DOM Elements
+        const adminToggle = document.getElementById('admin-toggle');
+        const adminPanel = document.getElementById('admin-panel');
+        const enableEditBtn = document.getElementById('enable-edit');
+        const disableEditBtn = document.getElementById('disable-edit');
+        const saveContentBtn = document.getElementById('save-content');
+        const resetContentBtn = document.getElementById('reset-content');
+        const imageUploadModal = document.getElementById('image-upload-modal');
+        const cancelUploadBtn = document.getElementById('cancel-upload');
+        const confirmUploadBtn = document.getElementById('confirm-upload');
+        const imageFileInput = document.getElementById('image-file');
+        const imageAltInput = document.getElementById('image-alt');
+        const linkEditorModal = document.getElementById('link-editor-modal');
+        const cancelLinkEditBtn = document.getElementById('cancel-link-edit');
+        const confirmLinkEditBtn = document.getElementById('confirm-link-edit');
+        const linkUrlInput = document.getElementById('link-url');
+        
+        // 详情展示功能元素
+        const detailModal = document.getElementById('detail-modal');
+        const detailModalImage = document.getElementById('detail-modal-image');
+        const detailModalTitle = document.getElementById('detail-modal-title');
+        const detailModalDescription = document.getElementById('detail-modal-description');
+        const detailModalFullDescription = document.getElementById('detail-modal-full-description');
+        const detailClose = document.querySelector('.detail-close');
+        
+        // State variables
+        let isEditingEnabled = false;
+        let currentEditingImage = null;
+        let currentEditingLink = null;
+        
+        // 详情数据存储
+        let detailData = {};
+        
+        // Toggle admin panel
+        adminToggle.addEventListener('click', () => {
+            adminPanel.style.display = adminPanel.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Enable editing mode
+        enableEditBtn.addEventListener('click', () => {
+            isEditingEnabled = true;
+            document.querySelectorAll('.editable').forEach(el => {
+                el.setAttribute('contenteditable', 'true');
+            });
+            alert('编辑模式已启用。点击文本、图片或链接进行编辑。');
+        });
+        
+        // Disable editing mode
+        disableEditBtn.addEventListener('click', () => {
+            isEditingEnabled = false;
+            document.querySelectorAll('.editable').forEach(el => {
+                el.removeAttribute('contenteditable');
+            });
+            alert('编辑模式已禁用。');
+        });
+        
+        // 初始化详情数据
+        function initDetailData() {
+            const savedDetailData = localStorage.getItem('jiangmenWebsiteDetailData');
+            if (savedDetailData) {
+                detailData = JSON.parse(savedDetailData);
+            } else {
+                // 设置默认详情数据
+                detailData = {
+                    'attraction-detail-1': {
+                        image: './images/bird.png',
+                        title: 'Bird Paradise',
+                        description: 'A natural reserve famous for its mangrove forest and thousands of birds. Made famous by the Chinese writer Ba Jin\'s essay "Bird Paradise."',
+                        fullDescription: 'As a nationally famous scenic spot and a natural bird-watching resort, Bird Paradise centers on a mud mound and a banyan tree. After more than 380 years of growth and reproduction, this "Tree of Life" is home to thousands of birds. The harmonious coexistence of birds and the tree creates the natural wonder of "one tree makes a paradise". In 1933, the literary master Ba Jin was amazed after a boat tour here and wrote the prose Bird Paradise, making "Bird Paradise" known to all. It is recommended to experience "bird-watching" by boat. In this way, tourists can stay away from the hustle and bustle and enjoy the tranquility of the banyan shade and herons.'
+                    },
+                    'attraction-detail-2': {
+                        image: './images/park.png',
+                        title: 'Guifeng Mountain National Forest Park',
+                        description: 'A well-preserved ancient water town that displays the long history and cultural heritage of Jiangmen."',
+                        fullDescription: 'Known as the "emerald of the Pearl River Delta" and a famous mountain integrating Confucianism, Buddhism, and Taoism, Guifeng Mountain is located in the hinterland of Jiangmen urban area. It is a national AAAA-level scenic spot and a provincial scenic spot in Guangdong. Named for its "smooth and jade-like mountain body", it features four major sceneries: "greenness, depth, uniqueness, and tranquility", and is known as a "cultural and ecological tourist resort in southern China". It is also rich in ecological resources. The park is planted with Chinese fan palms, cherry blossoms, bird-of-paradise flowers, red maple forests and other plants, offering scenic views in all seasons: cherry blossoms in spring, waterfalls in summer, maple leaves in autumn, and plum blossoms in winter. Tourists can choose to take a cable car to overlook the mountains, hike along the plank road, or experience traditional folk activities such as "Climbing on the Double Ninth Festival" and "Dragon Boat Race on Tianhu Lake". It is an all-round scenic spot for leisure, health preservation, and ancient relic exploration.'
+                    },
+                    'attraction-detail-3': {
+                        image: './images/parks.png',
+                        title: 'Kaiping Peacock Lake National Wetland Park',
+                        description: 'As part of Jiangmen’s rich natural landscape, this wetland park is famous for its clear lake water, lush wetland vegetation, and diverse wildlife. It is an ideal place for bird-watching, photography, and eco-tourism, allowing tourists to get close to nature and enjoy the peace of the wetland.',
+                        fullDescription: 'As part of Jiangmen’s rich natural landscape, this wetland park is famous for its clear lake water, lush wetland vegetation, and diverse wildlife. It is an ideal place for bird-watching, photography, and eco-tourism, allowing tourists to get close to nature and enjoy the peace of the wetland.'
+                    },
+                    'attraction-detail-4': {
+                        image: './images/parkss.png',
+                        title: 'Jiangmen is rich in coastal tourism resources and has many islands, which can meet all your expectations for coastal tourism. Naqin Peninsula Geopark & Ocean Park is a highlight of Jiangmen’s coastal scenery. It is famous for its unique coastal landforms such as strange rocks and sea erosion cliffs, and clear blue sea water. Tourists can walk along the coastal plank road, enjoy the magnificent sea view, or take part in marine activities such as snorkeling and beach camping',
+                        description: 'These unique watchtowers and villages reflect the architectural style of the Ming and Qing dynasties. A UNESCO World Heritage site that showcases the fusion of Chinese and Western architectural styles.',
+                        fullDescription: 'Jiangmen is rich in coastal tourism resources and has many islands, which can meet all your expectations for coastal tourism. Naqin Peninsula Geopark & Ocean Park is a highlight of Jiangmen’s coastal scenery. It is famous for its unique coastal landforms such as strange rocks and sea erosion cliffs, and clear blue sea water. Tourists can walk along the coastal plank road, enjoy the magnificent sea view, or take part in marine activities such as snorkeling and beach camping.'
+                    },
+                    'attraction-detail-5': {
+                        image: './images/Islands.png',
+                        title: 'Chuanshan Islands',
+                        description: 'The former residence of Liang Qichao, a prominent Chinese thinker, philosopher, and reformer of the late Qing Dynasty.',
+                        fullDescription: 'Including Shangchuan Island and Xiachuan Island, Chuanshan Islands are among Jiangmen’s most popular coastal tourist destinations. With long stretches of golden beaches, crystal-clear sea water, and rich marine resources, the islands are perfect for beach holidays, seafood tasting, and water sports like jet skiing and parasailing.'
+                    },
+                    'attraction-detail-6': {
+                        image: './images/diaolou.png',
+                        title: 'Kaiping Diaolou',
+                        description: 'These unique watchtowers and villages reflect the architectural style of the Ming and Qing dynasties. A UNESCO World Heritage site that showcases the fusion of Chinese and Western architectural styles',
+                        fullDescription: 'Kaiping Diaolou is the only World Cultural Heritage site in Guangdong.These buildings scattered in the countryside blend multiple Western architectural styles, such as Greek colonnades, Roman arches, and Baroque decorations. For foreign tourists, seeing familiar European architectural elements amid the idyllic scenery of Lingnan will be a novel and familiar experience.'
+                    },
+                    'attraction-detail-7': {
+                        image: './images/oldhouse.png',
+                        title: 'Chikan Ancient Town',
+                        description: 'Combining with Chinese and Western architectural styles, full of overseas Chinese charm.',
+                        fullDescription: 'With a history of 350 years, most of the existing street buildings in Chikan were funded and built by overseas Chinese in the early 20th century. Surrounded by rivers, shaded by ancient banyan trees, and with boats coming and going, over 600 arcade buildings stand along the water. The 3-kilometer arcade street, combining Chinese and Western architectural styles, is full of overseas Chinese charm.Chikan Film and Television City, built along the river, is a famous domestic film and television shooting base. The large-scale arcade complex here will make European tourists feel a sense of familiarity. Tourists can experience a "costume tour" — put on clothes from the Republic of China era, take photos against the backdrop of over 600 arcade buildings, and immerse themselves in the charm of this century-old town.'
+                    },
+                    'attraction-detail-8': {
+                        image: './images/town.png',
+                        title: 'Former Residence of Liang Qichao',
+                        description: 'The former residence of Liang Qichao, a prominent Chinese thinker, philosopher, and reformer of the late Qing Dynasty.',
+                        fullDescription: 'There are former residences of Liang Qichao in Xinhui, Jiangmen, Tianjin, Beijing and other places in China. Among them, the one in Jiangmen is where Mr. Liang Qichao was born and grew up as a teenager.Located at the foot of Fengshan Mountain with beautiful scenery, the former residence is surrounded by fish ponds and fields, presenting a beautiful idyllic scene.Liang Qichao—one of modern China’s most influential thinkers and a leader of the 1898 Reform Movement—has former residences in several cities, including Xinhui, Jiangmen, Tianjin, and Beijing. However, the residence in Jiangmen holds special significance: it is where he was born and spent his formative teenage years, making it a heartfelt window into his early life.Tucked at the foot of scenic Fengshan Mountain, the residence is embraced by lush fish ponds and vast green fields. The tranquil rural setting—with its traditional Lingnan-style architecture blending seamlessly with idyllic farmland—offers visitors a peaceful escape to reflect on Liang’s legacy, while soaking in the serene beauty of his hometown.'
+                    },
+                    'attraction-detail-9': {
+                        image: './images/overseas.png',
+                        title: 'China Qiaodu Overseas Chinese Museum',
+                        description: 'It signifies that Jiangmen, as "China’s Hometown of Overseas Chinese", is an important window for the world to observe Guangdong and even China.',
+                        fullDescription: 'The museum collects more than 40,000 pieces (sets) of overseas Chinese cultural relics, including Wuyi Yinxin (overseas Chinese letters) and overseas Chinese passports. These precious cultural relics reflect the difficult yet glorious entrepreneurial history of Wuyi overseas Chinese and the rich and profound Wuyi overseas Chinese culture from various aspects.The number, richness, and value of the overseas Chinese cultural relics collected here rank among the top of similar museums in China. The museum’s name and the words "Roots in the Hometown of Overseas Chinese" in the lobby are all composed of characters written by Mr. Liang Qichao. The Jiangmen map on the wall symbolizes that the first group of Chinese (represented by Liang Qichao) who "opened their eyes to see the world" first went abroad from here to the world. It also signifies that Jiangmen, as "China\’s Hometown of Overseas Chinese", is an important window for the world to observe Guangdong and even China.Taking the museum as a platform, Jiangmen will fulfill its responsibility as a "hometown of overseas Chinese" in connecting and serving overseas Chinese, and work with overseas Chinese and compatriots from Hong Kong, Macao, and Taiwan to build the Greater Bay Area and realize the Chinese Dream.'
+                    },
+                    'attraction-detail-10': {
+                        image: './images/museum.png',
+                        title: 'Xinhui Museum',
+                        description: 'It\'s more than a museum; it\'s an essential key to understanding the spirit of southern Guangdong.',
+                        fullDescription: 'Nestled in the historic heart of Jiangmen, the Xinhui Museum serves as a captivating gateway to the soul of this vibrant region. As you step inside, you\'ll embark on a journey through Xinhui\'s remarkable 1,500-year legacy, where land, migration, and culture intertwine. The museum beautifully unveils the area\'s dual identity: both as the cherished homeland for overseas Chinese and as the birthplace of the precious Xinhui Chenpi, the sun-dried tangerine peel revered in Chinese gastronomy and medicine. Through elegant displays of ancient ceramics and heartfelt stories of emigrants who sailed distant seas, the collection paints a living portrait of resilience and tradition. Your visit here will transform how you experience Jiangmen - the ancient watchtowers, the lyrical "Bird\'s Paradise" wetlands, and the aromatic Chenpi markets will all reveal deeper meaning after you\'ve absorbed the narratives preserved within these walls. This is more than a museum; it\'s an essential key to understanding the spirit of southern Guangdong.'
+                    },
+                    'food-detail-1': {
+                        image: './images/goose.png',
+                        title: 'Gujing Roast Goose',
+                        description: 'Not only is it a benchmark for Guangdong-style roast goose, but it also was officially listed in Guangdong’s Intangible Cultural Heritage Directory in 2012.',
+                        fullDescription: 'Gujing Roast Goose is undoubtedly an iconic traditional delicacy of Xinhui, Jiangmen. Originating from Gujing Town, Xinhui District, its preparation technique can be traced back to the imperial secret recipes of the Song Dynasty. Not only is it a benchmark for Guangdong-style roast goose, but it also was officially listed in Guangdong\’s Intangible Cultural Heritage Directory in 2012\.Using fresh goose meat as the main ingredient, this classic dish is roasted over an open fire with lychee wood—a unique process that gives the roast goose an incredible texture: the skin is as crispy as paper, while the meat is tender and juicy. When you take a bite, the crispy skin cracks instantly, releasing a burst of rich juice in your mouth. The sweet fragrance of lychee wood has long infused the meat, creating a perfect balance of saltiness and sweetness. Every bite leaves a lingering aroma and a memorable taste that makes you crave more\. Today, "Roast Goose Street" in Gujing Town has become the core gourmet landmark for tasting this delicacy, attracting over 300,000 tourists annually who travel specifically to savor an authentic serving of Gujing Roast Goose.'
+                    },
+                    'food-detail-2': {
+                        image: './images/food.png',
+                        title: 'Taishan Eel Rice',
+                        description: 'Taishan Eel Rice is the signature delicacy of Taishan, Jiangmen.',
+                        fullDescription: 'Taishan Eel Rice is the signature delicacy of Taishan, Jiangmen, and its ingredient selection is extremely strict. It uses fresh, live eelsare paired with Taishan’s local silk rice, which has slender, translucent grains and a rich, natural rice aroma. Cooked in a traditional clay pot over low heat, the eel’s sweet essence gradually infuses every grain of rice during the slow simmering process. The moment you lift the clay pot lid, the combined aroma of eel and rice hits you instantly—rich and savory without being greasy. Every bite is filled with authentic Taishan flavors, making your mouth water even before you take the first bite.'
+                    },
+                    'food-detail-3': {
+                        image: './images/nodes.png',
+                        title: 'Enping Laishen Noodles',
+                        description: 'Enping Laishen Noodles take late-harvest indica rice as their key ingredient. The finished noodles boast a smooth, glossy surface and a delightfully chewy, slippery texture',
+                        fullDescription: 'Enping Laishen Noodles take late-harvest indica rice as their key ingredient. The finished noodles boast a smooth, glossy surface and a delightfully chewy, slippery texture, with versatile serving ways—you can ladle hot broth over them for a comforting bite, or add white sugar and rice wine to enhance the flavor. Among all the ways to enjoy it, two classic styles stand out: For Dry-Mixed Laishen Noodles, drizzle fragrant roast goose oil and soy sauce over the noodles, then sprinkle with chopped green onions and sesame seeds—each bite bursts with rich rice aroma and mellow oiliness. For Soup-Based Laishen Noodles, it’s paired with a thick, savory broth simmered slowly with pig intestines, pig’s feet, and lean meat—warm and nourishing, perfect for autumn and winter. To the people of Enping, Laishen Noodles are a "must-have delicacy" for major festivals like Spring Festival and Winter Solstice. The long, unbroken shape of the noodles symbolizes "longevity and permanence," making every bite a taste of good wishes for life.'
+                    },
+                    'food-detail-4': {
+                        image: './images/dojiao.png',
+                        title: 'Enping Laishen Noodles',
+                        description: 'Enping Laishen Noodles take late-harvest indica rice as their key ingredient. The finished noodles boast a smooth, glossy surface and a delightfully chewy, slippery texture',
+                        fullDescription: 'Enping Laishen Noodles take late-harvest indica rice as their key ingredient. The finished noodles boast a smooth, glossy surface and a delightfully chewy, slippery texture, with versatile serving ways—you can ladle hot broth over them for a comforting bite, or add white sugar and rice wine to enhance the flavor. Among all the ways to enjoy it, two classic styles stand out: For Dry-Mixed Laishen Noodles, drizzle fragrant roast goose oil and soy sauce over the noodles, then sprinkle with chopped green onions and sesame seeds—each bite bursts with rich rice aroma and mellow oiliness. For Soup-Based Laishen Noodles, it’s paired with a thick, savory broth simmered slowly with pig intestines, pig’s feet, and lean meat—warm and nourishing, perfect for autumn and winter. To the people of Enping, Laishen Noodles are a "must-have delicacy" for major festivals like Spring Festival and Winter Solstice. The long, unbroken shape of the noodles symbolizes "longevity and permanence," making every bite a taste of good wishes for life.'
+                    },
+                    'food-detail-5': {
+                        image: 'https://p26-doubao-search-sign.byteimg.com/labis/88c8bd7ceb24c1737c248c86881d7b47~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199456&x-signature=pcNmtMwyHLrwOK8%2BheyDlyRbUwQ%3D',
+                        title: '恩平豆腐角',
+                        description: '恩平特色小吃，将豆腐切成三角状油炸，外酥里嫩。',
+                        fullDescription: '恩平豆腐角是恩平市的传统特色小吃，制作工艺独特。选用优质黄豆制成的豆腐，切成三角形块状，经过特殊处理后油炸至外皮金黄酥脆。食用时配以特制的酱料，外酥里嫩，豆香浓郁。这道小吃不仅是当地人的日常美食，也是游客必尝的地方特色，体现了恩平深厚的豆制品文化。'
+                    },
+                    'food-detail-6': {
+                        image: 'https://p3-doubao-search-sign.byteimg.com/labis/image/5928af16d0a401a0e60399b7e70310ee~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199467&x-signature=WbOd66o3ShcFWy65mWtKkQSpsTI%3D',
+                        title: '鹤山烧鹅',
+                        description: '鹤山传统名菜，选用优质鹅只，皮脆肉嫩，香气扑鼻。',
+                        fullDescription: '鹤山烧鹅是鹤山市的传统名菜，制作工艺讲究。选用本地优质鹅只，经过特制腌料腌制后，采用传统挂炉烤制技法，使鹅皮呈现金红色，皮脆肉嫩，香气四溢。烧鹅的独特风味在于腌料配方和烤制火候的精准掌握。这道菜不仅是鹤山人的骄傲，也是粤菜中的经典代表，深受食客喜爱。'
+                    },
+                    'culture-project-detail-1': {
+                        image: 'https://p3-doubao-search-sign.byteimg.com/labis/d03f677d6feea0e0e935e4f7740d998b~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199467&x-signature=YCgJE8X8LWIZyOdUVp3dRt8k3BA%3D',
+                        title: '碉楼保护',
+                        description: '持续努力保护和修复独特的开平碉楼，这是一个联合国教科文组织世界遗产地。',
+                        fullDescription: '碉楼保护项目致力于维护和修复独特的开平碉楼，这些是联合国教科文组织世界遗产地。这些多层防御塔代表了中西建筑风格的融合。保护工作包括结构加固、历史研究和教育计划，以提高人们对这些重要文化地标的认识。该项目还涉及培训当地工匠掌握传统建筑技术，确保这些历史建筑能够代代相传。'
+                    },
+                    'culture-project-detail-2': {
+                        image: 'https://p3-doubao-search-sign.byteimg.com/labis/image/8a1c2bf32218ae0c400fbabfd8d3205f~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199467&x-signature=k%2BB8mqt0b%2BytFR%2FDVUvcvehQ7oU%3D',
+                        title: '粤剧复兴',
+                        description: '在年轻一代中推广和保存传统粤剧艺术的节目。',
+                        fullDescription: '粤剧复兴项目旨在在年轻一代中推广和保存传统粤剧艺术。粤剧是广东地区的重要文化遗产，具有独特的唱腔、表演风格和音乐特色。该项目包括开设粤剧培训班、组织演出和比赛、录制教学视频以及在学校推广粤剧知识。通过这些活动，希望能够培养新一代的粤剧爱好者和表演者，确保这一传统艺术形式得以传承和发展。'
+                    },
+                    'culture-project-detail-3': {
+                        image: 'https://p26-doubao-search-sign.byteimg.com/labis/d664bfdc5c0d1cbc038b3243f624fa60~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199456&x-signature=O3C5vNv3%2BCeYGgDKp60TYraz24o%3D',
+                        title: '华侨文化研究',
+                        description: '系统研究江门华侨历史、文化和贡献，建立完整的华侨文化资料库。',
+                        fullDescription: '华侨文化研究项目致力于系统整理和研究江门华侨的历史、文化和贡献。通过收集华侨家书、老照片、侨批等珍贵史料，建立完整的华侨文化资料库。项目还包括口述历史采访、学术研究和文化交流活动，旨在全面展现江门华侨从出国谋生到回馈家乡的完整历程，弘扬华侨爱国爱乡的精神。'
+                    },
+                    'culture-project-detail-4': {
+                        image: 'https://p3-doubao-search-sign.byteimg.com/labis/c373a100e3557ea296dbd60898bc28e5~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1765199467&x-signature=SQJKMy3s%2BrTGLHZwDI%2F%2FCOYHlDQ%3D',
+                        title: '民间艺术保护',
+                        description: '保护和传承江门地区的传统民间艺术，如舞龙舞狮、剪纸、木雕等技艺。',
+                        fullDescription: '民间艺术保护项目专注于江门地区传统民间艺术的保护与传承。项目涵盖舞龙舞狮、剪纸、木雕、泥塑、编织等多种艺术形式。通过建立传承人制度、开设培训班、举办展览和比赛等方式，确保这些珍贵的民间艺术得以延续。同时，项目还致力于将传统技艺与现代设计相结合，让民间艺术在新时代焕发新的生命力。'
+                    }
+                };
+                saveDetailData();
+            }
+        }
+        
+        // 保存详情数据
+        function saveDetailData() {
+            localStorage.setItem('jiangmenWebsiteDetailData', JSON.stringify(detailData));
+        }
+        
+        // 显示详情模态框
+        function showDetailModal(itemId) {
+            const data = detailData[itemId] || {
+                image: '',
+                title: '无标题',
+                description: '无描述',
+                fullDescription: '暂无详细信息。'
+            };
+            
+            detailModalImage.src = data.image;
+            detailModalTitle.textContent = data.title;
+            detailModalDescription.textContent = data.description;
+            detailModalFullDescription.textContent = data.fullDescription;
+            
+            // 设置可编辑元素的data-id
+            detailModalImage.setAttribute('data-id', `${itemId}-image`);
+            detailModalTitle.setAttribute('data-id', `${itemId}-title`);
+            detailModalDescription.setAttribute('data-id', `${itemId}-description`);
+            detailModalFullDescription.setAttribute('data-id', `${itemId}-fullDescription`);
+            
+            detailModal.style.display = 'block';
+        }
+        
+        // 关闭详情模态框
+        detailClose.addEventListener('click', () => {
+            detailModal.style.display = 'none';
+        });
+        
+        // 点击模态框外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target === detailModal) {
+                detailModal.style.display = 'none';
+            }
+        });
+        
+        // Save content to localStorage
+        saveContentBtn.addEventListener('click', () => {
+            const contentData = {};
+            
+            // 保存文本内容
+            document.querySelectorAll('.editable').forEach(el => {
+                const id = el.getAttribute('data-id');
+                if (id) {
+                    contentData[id] = el.textContent;
+                    
+                    // 如果是详情数据，更新detailData
+                    if (id.includes('-detail-')) {
+                        const parts = id.split('-');
+                        const itemId = `${parts[0]}-${parts[1]}-${parts[2]}`;
+                        const field = parts[3];
+                        
+                        if (!detailData[itemId]) {
+                            detailData[itemId] = {};
+                        }
+                        
+                        if (field === 'title') {
+                            detailData[itemId].title = el.textContent;
+                        } else if (field === 'description') {
+                            detailData[itemId].description = el.textContent;
+                        } else if (field === 'fullDescription') {
+                            detailData[itemId].fullDescription = el.textContent;
+                        }
+                    }
+                }
+            });
+            
+            // 保存图片源
+            document.querySelectorAll('.editable-image').forEach(el => {
+                const id = el.getAttribute('data-id');
+                if (id) {
+                    const img = el.querySelector('img');
+                    if (img) {
+                        contentData[id] = img.src;
+                        
+                        // 如果是详情图片，更新detailData
+                        if (id.includes('-detail-') && id.includes('-image')) {
+                            const parts = id.split('-');
+                            const itemId = `${parts[0]}-${parts[1]}-${parts[2]}`;
+                            
+                            if (!detailData[itemId]) {
+                                detailData[itemId] = {};
+                            }
+                            
+                            detailData[itemId].image = img.src;
+                        }
+                    }
+                }
+            });
+            
+            // 保存链接URL
+            document.querySelectorAll('.editable-link').forEach(el => {
+                const id = el.getAttribute('data-id');
+                if (id) {
+                    contentData[id] = el.href;
+                }
+            });
+            
+            localStorage.setItem('jiangmenWebsiteContent', JSON.stringify(contentData));
+            saveDetailData();
+            alert('内容保存成功！');
+        });
+        
+        // Reset content to default
+        resetContentBtn.addEventListener('click', () => {
+            if (confirm('确定要将所有内容重置为默认值吗？此操作无法撤销。')) {
+                localStorage.removeItem('jiangmenWebsiteContent');
+                localStorage.removeItem('jiangmenWebsiteDetailData');
+                location.reload();
+            }
+        });
+        
+        // Load saved content
+        function loadSavedContent() {
+            const savedContent = localStorage.getItem('jiangmenWebsiteContent');
+            if (savedContent) {
+                const contentData = JSON.parse(savedContent);
+                
+                // 加载文本内容
+                document.querySelectorAll('.editable').forEach(el => {
+                    const id = el.getAttribute('data-id');
+                    if (id && contentData[id]) {
+                        el.textContent = contentData[id];
+                    }
+                });
+                
+                // 加载图片源
+                document.querySelectorAll('.editable-image').forEach(el => {
+                    const id = el.getAttribute('data-id');
+                    if (id && contentData[id]) {
+                        const img = el.querySelector('img');
+                        if (img) {
+                            img.src = contentData[id];
+                        }
+                    }
+                });
+                
+                // 加载链接URL
+                document.querySelectorAll('.editable-link').forEach(el => {
+                    const id = el.getAttribute('data-id');
+                    if (id && contentData[id]) {
+                        el.href = contentData[id];
+                    }
+                });
+            }
+        }
+        
+        // Image upload functionality
+        document.querySelectorAll('.editable-image').forEach(el => {
+            el.addEventListener('click', () => {
+                if (isEditingEnabled) {
+                    currentEditingImage = el;
+                    imageUploadModal.style.display = 'block';
+                }
+            });
+        });
+        
+        // Close image upload modal
+        cancelUploadBtn.addEventListener('click', () => {
+            imageUploadModal.style.display = 'none';
+            currentEditingImage = null;
+        });
+        
+        // Confirm image upload
+        confirmUploadBtn.addEventListener('click', () => {
+            if (imageFileInput.files.length > 0) {
+                const file = imageFileInput.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const img = currentEditingImage.querySelector('img');
+                    if (img) {
+                        img.src = e.target.result;
+                        
+                        // 更新alt文本
+                        if (imageAltInput.value) {
+                            img.alt = imageAltInput.value;
+                        }
+                        
+                        // 如果是详情图片，更新detailData
+                        const id = currentEditingImage.getAttribute('data-id');
+                        if (id && id.includes('-detail-') && id.includes('-image')) {
+                            const parts = id.split('-');
+                            const itemId = `${parts[0]}-${parts[1]}-${parts[2]}`;
+                            
+                            if (!detailData[itemId]) {
+                                detailData[itemId] = {};
+                            }
+                            
+                            detailData[itemId].image = e.target.result;
+                            saveDetailData();
+                        }
+                    }
+                    
+                    imageUploadModal.style.display = 'none';
+                    currentEditingImage = null;
+                    imageFileInput.value = '';
+                    imageAltInput.value = '';
+                };
+                
+                reader.readAsDataURL(file);
+            } else {
+                alert('请选择要上传的图片文件。');
+            }
+        });
+        
+        // Link editing functionality
+        document.querySelectorAll('.editable-link').forEach(el => {
+            el.addEventListener('click', (e) => {
+                if (isEditingEnabled) {
+                    e.preventDefault();
+                    currentEditingLink = el;
+                    linkUrlInput.value = el.href;
+                    linkEditorModal.style.display = 'block';
+                }
+            });
+        });
+        
+        // Close link editor modal
+        cancelLinkEditBtn.addEventListener('click', () => {
+            linkEditorModal.style.display = 'none';
+            currentEditingLink = null;
+        });
+        
+        // Confirm link edit
+        confirmLinkEditBtn.addEventListener('click', () => {
+            if (currentEditingLink && linkUrlInput.value) {
+                currentEditingLink.href = linkUrlInput.value;
+                linkEditorModal.style.display = 'none';
+                currentEditingLink = null;
+            } else {
+                alert('请输入有效的URL。');
+            }
+        });
+        
+        // Navigation functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Scroll to top button
+        const scrollTopButton = document.getElementById('scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopButton.classList.add('show');
+            } else {
+                scrollTopButton.classList.remove('show');
+            }
+        });
+        
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Animation on scroll
+        const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+        
+        function checkScroll() {
+            animateOnScrollElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+        
+        // Attraction filtering
+        const attractionFilters = document.querySelectorAll('.attraction-filter');
+        const attractionCards = document.querySelectorAll('.card[data-category]');
+        
+        attractionFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Update active filter
+                attractionFilters.forEach(f => f.classList.remove('active', 'bg-red-600', 'text-white'));
+                attractionFilters.forEach(f => f.classList.add('bg-gray-200', 'text-gray-700'));
+                
+                filter.classList.remove('bg-gray-200', 'text-gray-700');
+                filter.classList.add('active', 'bg-red-600', 'text-white');
+                
+                // Filter cards
+                const filterValue = filter.getAttribute('data-filter');
+                
+                attractionCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Language switcher
+        const langEnButtons = document.querySelectorAll('#lang-en, #mobile-lang-en');
+        const langZhButtons = document.querySelectorAll('#lang-zh, #mobile-lang-zh');
+        
+        langEnButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 在实际实现中，这将改变内容的语言
+                alert('语言已切换为英语');
+            });
+        });
+        
+        langZhButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 在实际实现中，这将改变内容的语言
+                alert('语言已切换为中文');
+            });
+        });
+        
+        // Gallery modal functionality
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        // Create modal for gallery
+        const galleryModal = document.createElement('div');
+        galleryModal.className = 'modal';
+        galleryModal.innerHTML = `
+            <span class="close">&times;</span>
+            <span class="prev">&#10094;</span>
+            <span class="next">&#10095;</span>
+            <img class="modal-content" id="modal-img">
+        `;
+        document.body.appendChild(galleryModal);
+        
+        const modalImg = document.getElementById('modal-img');
+        const closeModal = galleryModal.querySelector('.close');
+        const prevBtn = galleryModal.querySelector('.prev');
+        const nextBtn = galleryModal.querySelector('.next');
+        
+        let currentImageIndex = 0;
+        
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                if (!isEditingEnabled) {
+                    currentImageIndex = index;
+                    updateModalImage();
+                    galleryModal.style.display = 'block';
+                }
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            galleryModal.style.display = 'none';
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            updateModalImage();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            updateModalImage();
+        });
+        
+        function updateModalImage() {
+            const imgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            modalImg.src = imgSrc;
+            modalImg.classList.add('fade');
+            setTimeout(() => modalImg.classList.remove('fade'), 600);
+        }
+        
+        // Close modal when clicking outside the image
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                galleryModal.style.display = 'none';
+            }
+        });
+        
+        // 为所有箭头添加点击事件
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化详情数据
+            initDetailData();
+            
+            // 为景点箭头添加点击事件
+            document.querySelectorAll('.attraction-detail-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const itemId = btn.getAttribute('data-id').replace('attraction-link', 'attraction-detail');
+                    showDetailModal(itemId);
+                });
+            });
+            
+            // 为美食箭头添加点击事件
+            document.querySelectorAll('.food-detail-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const itemId = btn.getAttribute('data-id').replace('food-link', 'food-detail');
+                    showDetailModal(itemId);
+                });
+            });
+            
+            // 为文化项目箭头添加点击事件
+            document.querySelectorAll('.editable-link[data-id^="culture-project-link"]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const itemId = btn.getAttribute('data-id').replace('culture-project-link', 'culture-project-detail');
+                    showDetailModal(itemId);
+                });
+            });
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedContent();
+            checkScroll();
+        });
+    </script>
+</body>
+</html>
